@@ -24,7 +24,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1UjDsx7EQ6d4I3SEtpc3j0x0okq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -116,5 +116,23 @@
       <updated>1575861320606</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1257" height="453" key="GridCell.Tab.0.bottom" timestamp="1575867785412">
+      <screen x="63" y="27" width="1303" height="741" />
+    </state>
+    <state width="1257" height="453" key="GridCell.Tab.0.bottom/63.27.1303.741@63.27.1303.741" timestamp="1575867785412" />
+    <state width="1257" height="453" key="GridCell.Tab.0.center" timestamp="1575867785411">
+      <screen x="63" y="27" width="1303" height="741" />
+    </state>
+    <state width="1257" height="453" key="GridCell.Tab.0.center/63.27.1303.741@63.27.1303.741" timestamp="1575867785411" />
+    <state width="1257" height="453" key="GridCell.Tab.0.left" timestamp="1575867785410">
+      <screen x="63" y="27" width="1303" height="741" />
+    </state>
+    <state width="1257" height="453" key="GridCell.Tab.0.left/63.27.1303.741@63.27.1303.741" timestamp="1575867785410" />
+    <state width="1257" height="453" key="GridCell.Tab.0.right" timestamp="1575867785411">
+      <screen x="63" y="27" width="1303" height="741" />
+    </state>
+    <state width="1257" height="453" key="GridCell.Tab.0.right/63.27.1303.741@63.27.1303.741" timestamp="1575867785411" />
   </component>
 </project>
