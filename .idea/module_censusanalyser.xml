@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_censusanalyser" default="compile.module.censusanalyser">
+  <dirname property="module.censusanalyser.basedir" file="${ant.file.module_censusanalyser}"/>
+  
+  <property name="module.jdk.home.censusanalyser" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.censusanalyser" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.censusanalyser" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.censusanalyser" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="censusanalyser.output.dir" value="${module.censusanalyser.basedir}/../out/production/CensusAnalyser"/>
+  <property name="censusanalyser.testoutput.dir" value="${module.censusanalyser.basedir}/../out/test/CensusAnalyser"/>
+  
+  <path id="censusanalyser.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="censusanalyser.module.production.classpath">
+    <path refid="${module.jdk.classpath.censusanalyser}"/>
+  </path>
+  
+  <path id="censusanalyser.runtime.production.module.classpath">
+    <pathelement location="${censusanalyser.output.dir}"/>
+  </path>
+  
+  <path id="censusanalyser.module.classpath">
+    <path refid="${module.jdk.classpath.censusanalyser}"/>
+    <pathelement location="${censusanalyser.output.dir}"/>
+  </path>
+  
+  <path id="censusanalyser.runtime.module.classpath">
+    <pathelement location="${censusanalyser.testoutput.dir}"/>
+    <pathelement location="${censusanalyser.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.censusanalyser">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.censusanalyser">
+    <patternset refid="excluded.from.module.censusanalyser"/>
+  </patternset>
+  
+  
+  <target name="compile.module.censusanalyser" depends="compile.module.censusanalyser.production,compile.module.censusanalyser.tests" description="Compile module CensusAnalyser"/>
+  
+  <target name="compile.module.censusanalyser.production" depends="register.custom.compilers" description="Compile module CensusAnalyser; production classes"/>
+  
+  <target name="compile.module.censusanalyser.tests" depends="register.custom.compilers,compile.module.censusanalyser.production" description="compile module CensusAnalyser; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.censusanalyser" description="cleanup module">
+    <delete dir="${censusanalyser.output.dir}"/>
+    <delete dir="${censusanalyser.testoutput.dir}"/>
+  </target>
+</project>

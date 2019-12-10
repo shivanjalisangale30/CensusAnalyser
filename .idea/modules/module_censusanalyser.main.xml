@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_censusanalyser.main" default="compile.module.censusanalyser.main">
+  <dirname property="module.censusanalyser.main.basedir" file="${ant.file.module_censusanalyser.main}"/>
+  
+  <property name="module.jdk.home.censusanalyser.main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.censusanalyser.main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.censusanalyser.main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.censusanalyser.main" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="censusanalyser.main.output.dir" value="${module.censusanalyser.main.basedir}/../../build/classes/java/main"/>
+  <property name="censusanalyser.main.testoutput.dir" value="${module.censusanalyser.main.basedir}/../../build/classes/java/main"/>
+  
+  <path id="censusanalyser.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="censusanalyser.main.module.production.classpath">
+    <path refid="${module.jdk.classpath.censusanalyser.main}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.gradle:_com.opencsv:opencsv:4.0.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-text:1.1.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-lang3:3.6.classpath"/>
+    <path refid="library.gradle:_commons-beanutils:commons-beanutils:1.9.3.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.gradle:_commons-collections:commons-collections:3.2.2.classpath"/>
+  </path>
+  
+  <path id="censusanalyser.main.runtime.production.module.classpath">
+    <pathelement location="${censusanalyser.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.gradle:_com.opencsv:opencsv:4.0.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-text:1.1.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-lang3:3.6.classpath"/>
+    <path refid="library.gradle:_commons-beanutils:commons-beanutils:1.9.3.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.gradle:_commons-collections:commons-collections:3.2.2.classpath"/>
+  </path>
+  
+  <path id="censusanalyser.main.module.classpath">
+    <path refid="${module.jdk.classpath.censusanalyser.main}"/>
+    <pathelement location="${censusanalyser.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.gradle:_com.opencsv:opencsv:4.0.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-text:1.1.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-lang3:3.6.classpath"/>
+    <path refid="library.gradle:_commons-beanutils:commons-beanutils:1.9.3.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.gradle:_commons-collections:commons-collections:3.2.2.classpath"/>
+  </path>
+  
+  <path id="censusanalyser.main.runtime.module.classpath">
+    <pathelement location="${censusanalyser.main.output.dir}"/>
+    <path refid="library.gradle:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.gradle:_com.opencsv:opencsv:4.0.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-text:1.1.classpath"/>
+    <path refid="library.gradle:_org.apache.commons:commons-lang3:3.6.classpath"/>
+    <path refid="library.gradle:_commons-beanutils:commons-beanutils:1.9.3.classpath"/>
+    <path refid="library.gradle:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.gradle:_commons-collections:commons-collections:3.2.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.censusanalyser.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.censusanalyser.main">
+    <patternset refid="excluded.from.module.censusanalyser.main"/>
+  </patternset>
+  
+  <path id="censusanalyser.main.module.sourcepath">
+    <dirset dir="${module.censusanalyser.main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.censusanalyser.main" depends="compile.module.censusanalyser.main.production,compile.module.censusanalyser.main.tests" description="Compile module CensusAnalyser.main"/>
+  
+  <target name="compile.module.censusanalyser.main.production" depends="register.custom.compilers" description="Compile module CensusAnalyser.main; production classes">
+    <mkdir dir="${censusanalyser.main.output.dir}"/>
+    <javac2 destdir="${censusanalyser.main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.censusanalyser.main}/javac">
+      <compilerarg line="${compiler.args.censusanalyser.main}"/>
+      <bootclasspath refid="censusanalyser.main.module.bootclasspath"/>
+      <classpath refid="censusanalyser.main.module.production.classpath"/>
+      <src refid="censusanalyser.main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.censusanalyser.main"/>
+    </javac2>
+    
+    <copy todir="${censusanalyser.main.output.dir}">
+      <fileset dir="${module.censusanalyser.main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.censusanalyser.main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.censusanalyser.main.tests" depends="register.custom.compilers,compile.module.censusanalyser.main.production" description="compile module CensusAnalyser.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.censusanalyser.main" description="cleanup module">
+    <delete dir="${censusanalyser.main.output.dir}"/>
+    <delete dir="${censusanalyser.main.testoutput.dir}"/>
+  </target>
+</project>
