@@ -59,6 +59,15 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndiaCensusData_whenHeaderImproper_shouldHandleDelimeterException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
+        }
+    }
 
     //INDIA_STATE_DATA_CSV_FILE
     @Test
@@ -105,6 +114,15 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndianStateCSV_whenHeaderImproper_shouldHandleDelimeterException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numOfRecords = censusAnalyser.loadIndiaStateCodeData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
+        }
+    }
     //Sorting cases
     @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
