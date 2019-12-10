@@ -49,6 +49,16 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndiaCensusData_WhenDelimeterImproper_ShouldHandleDelimeterException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
+        }
+    }
+
 
     //INDIA_STATE_DATA_CSV_FILE
     @Test
@@ -79,13 +89,23 @@ public class CensusAnalyserTest {
     public void givenIndianStateCSV_WhenNotSupportedFileType_ShouldHandlNoSuchFileException() {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         try {
-            censusAnalyser.loadIndiaCensusData(PROPER_FILE2_BUT_TYPE_NOT_SUPPORTED);
+            censusAnalyser.loadIndiaStateCodeData(PROPER_FILE2_BUT_TYPE_NOT_SUPPORTED);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
         }
     }
 
+    @Test
+    public void givenIndianStateCSV_WhenDelimeterImproper_ShouldHandleDelimeterException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int numOfRecords = censusAnalyser.loadIndiaStateCodeData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
+        }
+    }
 
+    //Sorting cases
     @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
         try {
