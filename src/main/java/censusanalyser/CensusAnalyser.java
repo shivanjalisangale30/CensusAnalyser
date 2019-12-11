@@ -22,7 +22,6 @@ public class CensusAnalyser {
         this.censusStateMap = new HashMap<>();
         this.fieldsComparatorMap = new HashMap<>();
         this.fieldsComparatorMap.put(SortFields.STATE, Comparator.comparing(field -> field.state));
-        this.fieldsComparatorMap.put(SortFields.STATECODE, Comparator.comparing(field -> field.stateCode));
         this.fieldsComparatorMap.put(SortFields.POPULATION, Comparator.comparing(field -> field.population));
         this.fieldsComparatorMap.put(SortFields.AREAINSQKM, Comparator.comparing(field -> field.areaInSqKm));
         this.fieldsComparatorMap.put(SortFields.DENSITYPERSQKM, Comparator.comparing(field -> field.densityPerSqKm));
