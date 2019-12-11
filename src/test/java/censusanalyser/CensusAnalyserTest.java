@@ -135,7 +135,6 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Andhra Pradesh", censusCSV[0].state);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -149,12 +148,11 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Uttar Pradesh", censusCSV[28].state);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
     @Test
-    public void givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState(){
+    public void givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CODE_PATH);
@@ -163,21 +161,39 @@ public class CensusAnalyserTest {
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Bihar", censusCSV[28].state);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
     @Test
-    public void givenIndianCensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea(){
+    public void givenIndianCensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CODE_PATH);
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.loadIndiaStateCodeData(INDIA_STATE_CODE_PATH);
             String sortedCensusData = censusAnalyser.geSortedCensusData(SortFields.AREAINSQKM);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals("Rajasthan", censusCSV[28].state);
         } catch (CensusAnalyserException e) {
-            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIndianCensusData_WhenGivenEmptyFile_ShouldHandleException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadIndiaCensusData("");
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
+        }
+    }
+
+    @Test
+    public void givenIndiaStateData_WhenGivenEmptyFile_ShouldHandleException() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            censusAnalyser.loadIndiaStateCodeData("");
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
         }
     }
 }
