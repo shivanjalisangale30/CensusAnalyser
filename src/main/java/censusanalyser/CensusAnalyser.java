@@ -16,9 +16,16 @@ import java.util.stream.StreamSupport;
 public class CensusAnalyser {
 
     Map<String, IndiaCensusDAO> censusStateMap = null;
+    Map<SortFields, Comparator<IndiaCensusDAO>> fieldsComparatorMap = null;
 
     public CensusAnalyser() {
         this.censusStateMap = new HashMap<>();
+        this.fieldsComparatorMap = new HashMap<>();
+        this.fieldsComparatorMap.put(SortFields.STATE, Comparator.comparing(field -> field.state));
+        this.fieldsComparatorMap.put(SortFields.STATECODE, Comparator.comparing(field -> field.stateCode));
+        this.fieldsComparatorMap.put(SortFields.POPULATION, Comparator.comparing(field -> field.population));
+        this.fieldsComparatorMap.put(SortFields.AREAINSQKM, Comparator.comparing(field -> field.areaInSqKm));
+        this.fieldsComparatorMap.put(SortFields.DENSITYPERSQKM, Comparator.comparing(field -> field.densityPerSqKm));
     }
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
@@ -38,16 +45,19 @@ public class CensusAnalyser {
         return censusStateMap.size();
     }
 
-    public void loadIndiaStateCodeData(String IndiaStateCodeCSV) throws CensusAnalyserException {
+    public int loadIndiaStateCodeData(String IndiaStateCodeCSV) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(IndiaStateCodeCSV));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             Iterator<IndiaStateCodeCSV> stateCSVIterator = csvBuilder.getCSVFileIterartor(reader, IndiaStateCodeCSV.class);
+            int counter = 0;
             while (stateCSVIterator.hasNext()) {
+                counter++;
                 IndiaStateCodeCSV stateCSV = stateCSVIterator.next();
                 IndiaCensusDAO censusDAO = censusStateMap.get(stateCSV.stateName);
                 if (censusDAO == null) continue;
                 censusDAO.stateCode = stateCSV.stateCode;
             }
+            return counter;
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
@@ -58,37 +68,16 @@ public class CensusAnalyser {
 
     }
 
-    public String getStateWiseSortedCensusData(String sortBy) throws CensusAnalyserException {
+    public String geSortedCensusData(SortFields sortBy) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census Data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
         List<IndiaCensusDAO> censusDAOS = censusStateMap.values().stream().
                 collect(Collectors.toList());
-        this.sort(censusDAOS, this.getComparator(sortBy));
-        String sortedStateCensusJson = new Gson().toJson(censusStateMap);
+        this.sort(censusDAOS, this.fieldsComparatorMap.get(sortBy));
+        String sortedStateCensusJson = new Gson().toJson(censusDAOS);
         return sortedStateCensusJson;
-    }
-
-    public Comparator<IndiaCensusDAO> getComparator(String field) {
-        Comparator<IndiaCensusDAO> censusComparator;
-        switch (field.toLowerCase()) {
-            case "state":
-                censusComparator = Comparator.comparing(census -> census.state);
-                break;
-            case "population":
-                censusComparator = Comparator.comparing(census -> census.population);
-                break;
-            case "area":
-                censusComparator = Comparator.comparing(census -> census.areaInSqKm);
-                break;
-            case "density":
-                censusComparator = Comparator.comparing(census -> census.densityPerSqKm);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + field.toLowerCase());
-        }
-        return censusComparator;
     }
 
     private void sort(List<IndiaCensusDAO> censusDAOS, Comparator<IndiaCensusDAO> censusComparator) {
@@ -103,4 +92,6 @@ public class CensusAnalyser {
             }
         }
     }
+
+
 }
