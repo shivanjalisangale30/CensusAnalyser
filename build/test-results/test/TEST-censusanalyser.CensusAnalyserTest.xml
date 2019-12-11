@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="censusanalyser.CensusAnalyserTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2019-12-10T12:42:10" hostname="admin1-desktop" time="0.896">
+<testsuite name="censusanalyser.CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-11T06:58:29" hostname="admin1-desktop" time="0.014">
   <properties/>
-  <testcase name="givenIndianCensusCSVFileReturnsCorrectRecords" classname="censusanalyser.CensusAnalyserTest" time="0.313"/>
-  <testcase name="givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState" classname="censusanalyser.CensusAnalyserTest" time="0.198"/>
-  <testcase name="givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnPopulousState" classname="censusanalyser.CensusAnalyserTest" time="0.053"/>
-  <testcase name="givenIndiaCensusData_whenHeaderImproper_shouldHandleDelimeterException" classname="censusanalyser.CensusAnalyserTest" time="0.038"/>
-  <testcase name="givenIndianStateCSV_WhenDelimeterImproper_ShouldHandleDelimeterException" classname="censusanalyser.CensusAnalyserTest" time="0.02"/>
-  <testcase name="givenIndianStateCSV_WithWrongFile_ShouldThrowException" classname="censusanalyser.CensusAnalyserTest" time="0.006"/>
-  <testcase name="givenIndianStateCSV_whenHeaderImproper_shouldHandleDelimeterException" classname="censusanalyser.CensusAnalyserTest" time="0.002"/>
-  <testcase name="givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult" classname="censusanalyser.CensusAnalyserTest" time="0.04"/>
-  <testcase name="givenIndianStateCSV_ShouldReturnExactCount" classname="censusanalyser.CensusAnalyserTest" time="0.027"/>
-  <testcase name="givenIndiaCensusData_WhenDelimeterImproper_ShouldHandleDelimeterException" classname="censusanalyser.CensusAnalyserTest" time="0.117"/>
-  <testcase name="givenIndiaCensusData_WhenNotSupportedFileType_ShouldHandlNoSuchFileException" classname="censusanalyser.CensusAnalyserTest" time="0.004"/>
-  <testcase name="givenIndiaCensusData_WithWrongFile_ShouldThrowException" classname="censusanalyser.CensusAnalyserTest" time="0.001"/>
-  <testcase name="givenIndianStateCSV_WhenNotSupportedFileType_ShouldHandlNoSuchFileException" classname="censusanalyser.CensusAnalyserTest" time="0.001"/>
-  <testcase name="givenIndianCensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea" classname="censusanalyser.CensusAnalyserTest" time="0.064"/>
+  <testcase name="givenIndianStateCSV_ShouldReturnExactCount" classname="censusanalyser.CensusAnalyserTest" time="0.014"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[censusanalyser.CensusAnalyserException: java.lang.NullPointerException
-	at censusanalyser.CensusAnalyser.loadIndiaStateCodeData(CensusAnalyser.java:51)
+  <system-err><![CDATA[censusanalyser.CensusAnalyserException
+	at censusanalyser.CensusAnalyser.loadIndiaStateCodeData(CensusAnalyser.java:55)
 	at censusanalyser.CensusAnalyserTest.givenIndianStateCSV_ShouldReturnExactCount(CensusAnalyserTest.java:77)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
