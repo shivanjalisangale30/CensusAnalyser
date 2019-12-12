@@ -27,31 +27,14 @@ public class CensusAnalyser {
         this.fieldsComparatorMap.put(SortFields.DENSITYPERSQKM, Comparator.comparing(field -> field.populationDensity));
     }
 
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        censusStateMap =  new CensusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
+    public int loadIndiaCensusData(String... csvFilePath) throws CensusAnalyserException {
+        censusStateMap =  new CensusLoader().loadCensusData( IndiaCensusCSV.class,csvFilePath);
         return censusStateMap.size();
     }
 
-    public int loadUSACensusData(String csvFilePath) throws CensusAnalyserException {
-        censusStateMap = new CensusLoader().loadCensusData(csvFilePath,USACensusData.class);
+    public int loadUSACensusData(String... csvFilePath) throws CensusAnalyserException {
+        censusStateMap = new CensusLoader().loadCensusData(USACensusData.class,csvFilePath);
         return censusStateMap.size();
-    }
-    public int loadIndiaStateCodeData(String IndiaStateCodeCSV) throws CensusAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(IndiaStateCodeCSV));) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaStateCodeCSV> stateCSVIterator = csvBuilder.getCSVFileIterartor(reader, IndiaStateCodeCSV.class);
-            Iterable<IndiaStateCodeCSV> csvIterable = () -> stateCSVIterator;
-            StreamSupport.stream(csvIterable.spliterator(), false)
-                    .filter(csvState -> censusStateMap.get(csvState.stateName) != null)
-                    .forEach(csvState -> censusStateMap.get(csvState.stateName).stateCode = csvState.stateCode);
-            return censusStateMap.size();
-        } catch (IOException | CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION);
-        }
     }
 
     public String geSortedCensusData(SortFields sortBy) throws CensusAnalyserException {
