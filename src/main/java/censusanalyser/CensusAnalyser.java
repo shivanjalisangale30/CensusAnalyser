@@ -11,8 +11,10 @@ public class CensusAnalyser {
     public enum Country {INIDIA ,USA};
     Map<String, CensusDAO> censusStateMap = null;
     Map<SortFields, Comparator<CensusDAO>> fieldsComparatorMap = null;
+    private Country country;
 
     public CensusAnalyser() {
+        this.country = country;
         this.censusStateMap = new HashMap<>();
         this.fieldsComparatorMap = new HashMap<>();
         this.fieldsComparatorMap.put(SortFields.STATE, Comparator.comparing(field -> field.state));
@@ -22,7 +24,7 @@ public class CensusAnalyser {
     }
 
     public int loadCensusData(Country country,String... csvFilePath) throws CensusAnalyserException {
-        censusStateMap =  new CensusLoader().loadCensusData( country,csvFilePath);
+        censusStateMap = CensusAdapterFactory.getCensusData(country,csvFilePath);
         return censusStateMap.size();
     }
 
@@ -31,23 +33,11 @@ public class CensusAnalyser {
             throw new CensusAnalyserException("No census Data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-        List<CensusDAO> censusDAOS = censusStateMap.values().stream().
-                collect(Collectors.toList());
-        this.sort(censusDAOS, this.fieldsComparatorMap.get(sortBy));
-        String sortedStateCensusJson = new Gson().toJson(censusDAOS);
-        return sortedStateCensusJson;
-    }
+        List<CensusDAO> censusDAOS = censusStateMap.values().stream()
+                                     .collect(Collectors.toList());
 
-    private void sort(List<CensusDAO> censusDAOS, Comparator<CensusDAO> censusComparator) {
-        for (int i = 0; i < censusDAOS.size() - 1; i++) {
-            for (int j = 0; j < censusDAOS.size() - i - 1; j++) {
-                CensusDAO census1 = censusDAOS.get(j);
-                CensusDAO census2 = censusDAOS.get(j + 1);
-                if (censusComparator.compare(census1, census2) > 0) {
-                    censusDAOS.set(j, census2);
-                    censusDAOS.set(j + 1, census1);
-                }
-            }
-        }
+
+       String sortedStateCensusJson = new Gson().toJson(censusDAOS);
+       return sortedStateCensusJson;
     }
 }
