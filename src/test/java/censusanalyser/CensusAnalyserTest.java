@@ -15,6 +15,7 @@ public class CensusAnalyserTest {
     String PROPER_FILE2_BUT_TYPE_NOT_SUPPORTED = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode.json";
     String WRONG_CSV_FILE2_PATH = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/main/resources/IndiaStateCode.csv";
 
+    String USA_CENSUS_DATA = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
 
     //INDIA_CENSUS_DATA_CSV_FILE
     @Test
@@ -207,5 +208,16 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
         }
+    }
+
+    //USA_CENSUS_DATA_CSV_FILE
+    @Test
+    public void givenUSACensusData_ShouldReturnCorrectData() {
+        CensusAnalyser censusAnalyser = new CensusAnalyser();
+        try {
+            int result = censusAnalyser.loadUSACensusData(USA_CENSUS_DATA);
+            Assert.assertEquals(51, result);
+        } catch (CensusAnalyserException e) {}
+
     }
 }
