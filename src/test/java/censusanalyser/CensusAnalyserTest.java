@@ -19,104 +19,6 @@ public class CensusAnalyserTest {
 
     String USA_CENSUS_DATA = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
 
-    //INDIA_CENSUS_DATA_CSV_FILE
-    @Test
-    public void givenIndianCensusCSVFileReturnsCorrectRecords() {
-        try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int numOfRecords = censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
-            Assert.assertEquals(29, numOfRecords);
-        } catch (CensusAnalyserException e) {
-        }
-    }
-
-    @Test
-    public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() {
-        try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            ExpectedException exceptionRule = ExpectedException.none();
-            exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,WRONG_CSV_FILE1_PATH,INDIA_STATE_CODE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndiaCensusData_WhenNotSupportedFileType_ShouldHandlNoSuchFileException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,PROPER_FILE1_BUT_TYPE_NOT_SUPPORTED,INDIA_STATE_CODE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndiaCensusData_WhenDelimeterImproper_ShouldHandleDelimeterException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            int numOfRecords = censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndiaCensusData_whenHeaderImproper_shouldHandleDelimeterException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            int numOfRecords = censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
-    //INDIA_STATE_DATA_CSV_FILE
-
-    @Test
-    public void givenIndianStateCSV_WithWrongFile_ShouldThrowException() {
-        try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            ExpectedException exceptionRule = ExpectedException.none();
-            exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH, WRONG_CSV_FILE2_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
-
-    @Test
-    public void givenIndianStateCSV_WhenNotSupportedFileType_ShouldHandlNoSuchFileException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH,PROPER_FILE2_BUT_TYPE_NOT_SUPPORTED);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndianStateCSV_WhenDelimeterImproper_ShouldHandleDelimeterException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            int numOfRecords = censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
-    @Test
-    public void givenIndianStateCSV_whenHeaderImproper_shouldHandleDelimeterException() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION, e.type);
-        }
-    }
-
     //Sorting cases
     @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
@@ -196,14 +98,7 @@ public class CensusAnalyserTest {
         }
     }
 
-    //USA_CENSUS_DATA_CSV_FILE
     @Test
-    public void givenUSACensusData_ShouldReturnCorrectData() {
-        CensusAnalyser censusAnalyser = new CensusAnalyser();
-        try {
-            int result = censusAnalyser.loadCensusData(CensusAnalyser.Country.INIDIA,USA_CENSUS_DATA);
-            Assert.assertEquals(51, result);
-        } catch (CensusAnalyserException e) {}
-
+    public void name() {
     }
 }
