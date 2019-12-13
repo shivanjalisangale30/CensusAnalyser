@@ -77,4 +77,14 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {}
     }
 
+    @Test
+    public void givenUSACensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
+            censusAnalyser.loadCensusData(USA_CENSUS_DATA);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.DENSITYPERSQKM);
+            USACensusCSV[] usaCensusCSVS = new Gson().fromJson(sortedCensusData, USACensusCSV[].class);
+            Assert.assertEquals("Kentucky",usaCensusCSVS[28].state);
+        } catch (CensusAnalyserException e) {}
+    }
 }
