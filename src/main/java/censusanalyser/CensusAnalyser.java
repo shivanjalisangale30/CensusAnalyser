@@ -8,9 +8,7 @@ import java.util.stream.Collectors;
 
 public class CensusAnalyser {
 
-    public enum Country {INIDIA, USA}
-
-    ;
+    public enum Country {INIDIA, USA};
     Map<String, CensusDAO> censusStateMap = null;
     Map<SortFields, Comparator<CensusDAO>> fieldsComparatorMap = null;
     private Country country;
@@ -31,7 +29,6 @@ public class CensusAnalyser {
         return censusStateMap.size();
     }
 
-
     public String geSortedCensusData(SortFields sortBy) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census Data",
@@ -45,5 +42,4 @@ public class CensusAnalyser {
         String sortedStateCensusJson = new Gson().toJson(censusDTO);
         return sortedStateCensusJson;
     }
-
 }

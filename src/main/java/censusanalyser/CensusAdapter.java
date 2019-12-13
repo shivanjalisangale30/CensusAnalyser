@@ -16,7 +16,9 @@ import java.util.stream.StreamSupport;
 public abstract class CensusAdapter {
 
     public abstract Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country country, String... csvFilePath) throws CensusAnalyserException;
+
     Map<String, CensusDAO> censusStateMap = new HashMap<>();
+
     protected <E> Map<String, CensusDAO> loadCensusData(Class<E> censusCSVClass, String... csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
@@ -40,7 +42,7 @@ public abstract class CensusAdapter {
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION);
+                    CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE);
         }
     }
 }

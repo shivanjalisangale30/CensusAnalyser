@@ -21,7 +21,7 @@ public class IndiaCensusAdapter extends CensusAdapter {
             this.loadIndiaStateCodeData(csvFilePath[1]);
             return censusStateMap;
         } catch (ArrayIndexOutOfBoundsException e){
-            throw new CensusAnalyserException("file missing",CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+            throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
     }
 
@@ -39,7 +39,7 @@ public class IndiaCensusAdapter extends CensusAdapter {
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION);
+                    CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE);
         }
     }
 }
