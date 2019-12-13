@@ -87,4 +87,16 @@ public class CensusAnalyserTest {
             Assert.assertEquals("Kentucky",usaCensusCSVS[28].state);
         } catch (CensusAnalyserException e) {}
     }
+
+    @Test
+    public void givenUSACensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
+            censusAnalyser.loadCensusData(USA_CENSUS_DATA);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.AREAINSQKM);
+            USACensusCSV[] usaCensusCSVS = new Gson().fromJson(sortedCensusData, USACensusCSV[].class);
+            Assert.assertEquals("Wisconsin",usaCensusCSVS[28].state);
+        } catch (CensusAnalyserException e) {}
+    }
+
 }
