@@ -20,7 +20,7 @@ public class IndianCensusAdapterTest {
     public void givenIndiaCensusData_WhenGivenCorrectData_ShouldReturnCount() {
         IndiaCensusAdapter indiaCensusAdapter = new IndiaCensusAdapter();
         try {
-            Map<String, CensusDAO> stringCensusDAOMap = indiaCensusAdapter.loadCensusData(IndiaCensusCSV.class, INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
+            Map<String, CensusDAO> stringCensusDAOMap = indiaCensusAdapter.loadCensusData(CensusAnalyser.Country.INIDIA, INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
             Assert.assertEquals(29,stringCensusDAOMap.size());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();

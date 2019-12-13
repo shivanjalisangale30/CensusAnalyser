@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 public class CensusAnalyser {
 
-    public enum Country {INIDIA ,USA};
+    public enum Country {INIDIA, USA}
+
+    ;
     Map<String, CensusDAO> censusStateMap = null;
     Map<SortFields, Comparator<CensusDAO>> fieldsComparatorMap = null;
     private Country country;
 
-    public CensusAnalyser() {
+    public CensusAnalyser(Country country) {
         this.country = country;
         this.censusStateMap = new HashMap<>();
         this.fieldsComparatorMap = new HashMap<>();
@@ -23,21 +25,25 @@ public class CensusAnalyser {
         this.fieldsComparatorMap.put(SortFields.DENSITYPERSQKM, Comparator.comparing(field -> field.populationDensity));
     }
 
-    public int loadCensusData(Country country,String... csvFilePath) throws CensusAnalyserException {
-        censusStateMap = (Map<String, CensusDAO>) CensusAdapterFactory.getCensusData(country);
+    public int loadCensusData(String... csvFilePath) throws CensusAnalyserException {
+        CensusAdapter censusData = CensusAdapterFactory.getCensusData(country);
+        censusStateMap = censusData.loadCensusData(country, csvFilePath);
         return censusStateMap.size();
     }
+
 
     public String geSortedCensusData(SortFields sortBy) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census Data",
                     CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-        List<CensusDAO> censusDAOS = censusStateMap.values().stream()
-                                     .collect(Collectors.toList());
+        ArrayList censusDTO = censusStateMap.values().stream()
+                .sorted(this.fieldsComparatorMap.get(sortBy))
+                .map(censusDAO -> censusDAO.getDAO(country))
+                .collect(Collectors.toCollection(ArrayList::new));
 
-
-       String sortedStateCensusJson = new Gson().toJson(censusDAOS);
-       return sortedStateCensusJson;
+        String sortedStateCensusJson = new Gson().toJson(censusDTO);
+        return sortedStateCensusJson;
     }
+
 }

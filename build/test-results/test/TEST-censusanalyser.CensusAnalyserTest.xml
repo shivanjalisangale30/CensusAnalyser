@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="censusanalyser.CensusAnalyserTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-12-13T07:53:35" hostname="admin1-desktop" time="0.282">
+  <properties/>
+  <testcase name="givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState" classname="censusanalyser.CensusAnalyserTest" time="0.177"/>
+  <testcase name="givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnPopulousState" classname="censusanalyser.CensusAnalyserTest" time="0.045"/>
+  <testcase name="givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult" classname="censusanalyser.CensusAnalyserTest" time="0.033"/>
+  <testcase name="givenIndianCensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea" classname="censusanalyser.CensusAnalyserTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

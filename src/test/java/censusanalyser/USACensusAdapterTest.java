@@ -17,7 +17,7 @@ public class USACensusAdapterTest {
     public void givenUSACensusData_ShouldReturnCorrectData() {
         USACensusAdapter usaCensusAdapter = new USACensusAdapter();
         try {
-            Map<String, CensusDAO> stringCensusDAOMap = usaCensusAdapter.loadCensusData(USACensusData.class, USA_CENSUS_DATA);
+            Map<String, CensusDAO> stringCensusDAOMap = usaCensusAdapter.loadCensusData(USACensusCSV.class, USA_CENSUS_DATA);
             Assert.assertEquals(51,stringCensusDAOMap.size());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
@@ -28,7 +28,7 @@ public class USACensusAdapterTest {
     public void givenUSACensusData_WhenGivenWrongFile_ShouldHandleException() {
         USACensusAdapter usaCensusAdapter = new USACensusAdapter();
         try {
-            usaCensusAdapter.loadCensusData(USACensusData.class,WRONG_FILE_PATH);
+            usaCensusAdapter.loadCensusData(USACensusCSV.class,WRONG_FILE_PATH);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,e.type);
         }
@@ -38,7 +38,7 @@ public class USACensusAdapterTest {
     public void givenUSACensusData_WhenGivenTypeIsNotSupported_ShouldHandleException() {
         USACensusAdapter usaCensusAdapter = new USACensusAdapter();
         try {
-            usaCensusAdapter.loadCensusData(USACensusData.class,FILE_TYPE_NOT_SUPPORTED);
+            usaCensusAdapter.loadCensusData(USACensusCSV.class,FILE_TYPE_NOT_SUPPORTED);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,e.type);
         }
@@ -48,7 +48,7 @@ public class USACensusAdapterTest {
     public void givenIndiaCensusData_WhenDelimeterImproper_ShouldHandleDelimeterException() {
         USACensusAdapter usaCensusAdapter = new USACensusAdapter();
         try {
-            usaCensusAdapter.loadCensusData(USACensusData.class,USA_CENSUS_DATA);
+            usaCensusAdapter.loadCensusData(USACensusCSV.class,USA_CENSUS_DATA);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION,e.type);
         }
@@ -58,7 +58,7 @@ public class USACensusAdapterTest {
     public void givenIndiaCensusData_whenHeaderImproper_shouldHandleDelimeterException() {
         USACensusAdapter usaCensusAdapter = new USACensusAdapter();
         try {
-            usaCensusAdapter.loadCensusData(USACensusData.class,USA_CENSUS_DATA);
+            usaCensusAdapter.loadCensusData(USACensusCSV.class,USA_CENSUS_DATA);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_EXCEPTION,e.type);
         }
