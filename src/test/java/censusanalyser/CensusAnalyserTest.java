@@ -23,7 +23,18 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnPopulousState() {
+    public void givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnLeastPopulousState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
+            censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.POPULATION);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Sikkim", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {}
+    }
+
+    @Test
+    public void givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnMostPopulousState() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
             censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
@@ -32,6 +43,7 @@ public class CensusAnalyserTest {
             Assert.assertEquals("Uttar Pradesh", censusCSV[28].state);
         } catch (CensusAnalyserException e) {}
     }
+
 
     @Test
     public void givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState() {
