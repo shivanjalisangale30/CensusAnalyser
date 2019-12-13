@@ -84,4 +84,14 @@ public class USACensusAdapterTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE,e.type);
         }
     }
+
+    @Test
+    public void givenDifferentCountryFile_ShouldHandleException() {
+        USACensusAdapter usaCensusAdapter = new USACensusAdapter();
+        try {
+            usaCensusAdapter.loadCensusData(CensusAnalyser.Country.USA,INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE,e.type);
+        }
+    }
 }
