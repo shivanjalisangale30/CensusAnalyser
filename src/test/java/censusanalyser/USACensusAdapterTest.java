@@ -94,4 +94,13 @@ public class USACensusAdapterTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE,e.type);
         }
     }
+
+    @Test
+    public void givenUSACensusDataAndIndiaCensusData_WhenBothFileProperWithProperOrder_ShouldGiveCorrectCount() {
+        USACensusAdapter usaCensusAdapter = new USACensusAdapter();
+        try {
+            Map<String, CensusDAO> stringCensusDAOMap = usaCensusAdapter.loadCensusData(CensusAnalyser.Country.USA, USA_CENSUS_DATA, INDIA_CENSUS_CSV_FILE_PATH);
+            Assert.assertEquals(51,stringCensusDAOMap.size());
+        } catch (CensusAnalyserException e) {}
+    }
 }
