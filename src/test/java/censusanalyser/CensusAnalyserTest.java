@@ -65,4 +65,16 @@ public class CensusAnalyserTest {
             Assert.assertEquals("Alabama",usaCensusCSVS[0].state);
         } catch (CensusAnalyserException e) {}
     }
+
+    @Test
+    public void givenUSACensusData_WhenSortedOnPopulation_ShouldReturnPopulousState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
+            censusAnalyser.loadCensusData(USA_CENSUS_DATA);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.POPULATION);
+            USACensusCSV[] usaCensusCSVS = new Gson().fromJson(sortedCensusData, USACensusCSV[].class);
+            Assert.assertEquals("Alabama",usaCensusCSVS[28].state);
+        } catch (CensusAnalyserException e) {}
+    }
+
 }
