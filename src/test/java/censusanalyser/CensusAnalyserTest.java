@@ -67,6 +67,17 @@ public class CensusAnalyserTest {
     }
 
     @Test
+    public void givenIndianCensusData_WhenSortedOnArea_ShouldReturnLeastLargestStateByArea() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
+            censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.AREAINSQKM);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Goa", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {}
+    }
+
+    @Test
     public void givenIndianCensusData_WhenSortedOnArea_ShouldReturnMostLargestStateByArea() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
