@@ -44,6 +44,16 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {}
     }
 
+    @Test
+    public void givenIndianCensusData_WhenSortedOnDensity_ShouldReturnLeastPopulationDensityState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
+            censusAnalyser.loadCensusData(INDIA_CENSUS_CSV_FILE_PATH,INDIA_STATE_CODE_PATH);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.DENSITYPERSQKM);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Arunachal Pradesh", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {}
+    }
 
     @Test
     public void givenIndianCensusData_WhenSortedOnDensity_ShouldReturnMostPopulationDensityState() {
