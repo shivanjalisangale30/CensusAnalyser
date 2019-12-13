@@ -141,4 +141,14 @@ public class IndianCensusAdapterTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE, e.type);
         }
     }
+
+    @Test
+    public void givenCensusDataFile_WhenCensusDataFileIsEmpty_ShouldHandleException() {
+        IndiaCensusAdapter indiaCensusAdapter = new IndiaCensusAdapter();
+        try {
+            indiaCensusAdapter.loadCensusData(CensusAnalyser.Country.INIDIA,EMPTY_FILE,INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.SOME_FILE_ISSUE, e.type);
+        }
+    }
 }
