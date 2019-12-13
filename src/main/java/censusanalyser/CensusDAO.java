@@ -31,6 +31,6 @@ public class CensusDAO {
     public Object getDAO(CensusAnalyser.Country country) {
         if (country.equals(CensusAnalyser.Country.INIDIA))
             return new IndiaCensusCSV(state, (int) population, (int) populationDensity, (int) totalArea);
-        return new USACensusCSV(state, population, totalArea, populationDensity);
+        return new USACensusCSV(state, (int)population, (double)totalArea, (double) populationDensity);
     }
 }

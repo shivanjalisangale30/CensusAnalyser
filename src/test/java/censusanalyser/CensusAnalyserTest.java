@@ -9,6 +9,9 @@ public class CensusAnalyserTest {
     String INDIA_CENSUS_CSV_FILE_PATH = "./src/test/resources/IndiaStateCensusData.csv";
     String INDIA_STATE_CODE_PATH = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/IndiaStateCode.csv";
     String USA_CENSUS_DATA = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/USCensusData.csv";
+    String INDIA_CENSUS_DOUBLE_VALUES = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/DoubleIndiaCensusData.csv";
+    String USA_CENSUS_DOUBLE_VALUES = "/home/admin1/Desktop/CensusAnalyser/CensusAnalyser/src/test/resources/DoubleUSACensus.csv";
+
 
 
     @Test
@@ -89,6 +92,19 @@ public class CensusAnalyserTest {
     }
 
     @Test
+    public void givenIndiaCensusDataHavingDoubleValues_WhenSortedOnPopualtionAndDensity_ShouldReturnLeastDensityState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INIDIA);
+            censusAnalyser.loadCensusData(INDIA_CENSUS_DOUBLE_VALUES);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.DOUBLEVALUES);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Maharashtra", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void givenUSACensusData_WhenSortedOnState_ShouldRturnSortedResult() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
@@ -165,4 +181,16 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {}
     }
 
+    @Test
+    public void givenUSACensusDataHavingDoubleValues_WhenSortedOnPopualtionAndDensity_ShouldReturnLeastDensityState() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
+            censusAnalyser.loadCensusData(USA_CENSUS_DOUBLE_VALUES);
+            String sortedCensusData = censusAnalyser.getSortedCensusData(SortFields.DOUBLEVALUES);
+            USACensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, USACensusCSV[].class);
+            Assert.assertEquals("Wyoming", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
